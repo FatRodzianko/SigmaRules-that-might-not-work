@@ -1,0 +1,23 @@
+title: Appverif.exe DLL side-loading attack
+id: 20457122-a684-410d-adad-af700eb23520
+status: experimental
+description: This rule is meant to detect when appverif.exe is used in a DLL side-loading attack to gain code execution to bypass application whitelisting. Detects when appverif.exe is spawned outside of WINDOWS\System32
+references:
+    - https://www.fatrodzianko.com/2020/02/15/dll-side-loading-appverif-exe/
+tags:
+    - attack.execution
+    - attack.T1073
+author:@fatrodzianko
+date: 2020/02/15
+logsource:                     
+    category: process_creation  
+    product: windows            
+detection:
+    selection:
+        Image: 'C:\users\\*\appverif.exe'
+    condition: selection
+fields:
+    - PPID to determine what spawned appverif.exe
+falsepositives:
+    - Unknown
+level: high
